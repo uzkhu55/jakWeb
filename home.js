@@ -163,14 +163,14 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   playQuizBtn.addEventListener("click", function () {
     updateMenuBody(`
-      <div class="quiz-container">
-        <h3>Play Quiz</h3>
-        <p>Get ready to start the quiz!</p>
-        <button id="start-quiz-btn" class="start-quiz-button">Start Quiz</button>
-        <div id="quiz-content" class="quiz-content hidden"></div>
-        <div id="feedback-banner" class="feedback-banner hidden"></div>
-      </div>
-    `);
+    <div class="quiz-container">
+      <h3>Play Quiz</h3>
+      <p>Get ready to start the quiz!</p>
+      <button id="start-quiz-btn" class="start-quiz-button">Start Quiz</button>
+      <div id="quiz-content" class="quiz-content hidden"></div>
+      <div id="feedback-banner" class="feedback-banner hidden"></div>
+    </div>
+  `);
 
     const startQuizBtn = document.getElementById("start-quiz-btn");
     const quizContent = document.getElementById("quiz-content");
@@ -196,10 +196,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const questionObj = questions[randomIndex];
 
         quizContent.innerHTML = `
-          <p class="quiz-question">${questionObj.question}</p>
-          <input type="text" id="user-answer" placeholder="Your answer" class="quiz-input">
-          <button id="submit-answer-btn" class="submit-answer-button">Submit Answer</button>
-        `;
+        <p class="quiz-question">${questionObj.question}</p>
+        <input type="text" id="user-answer" placeholder="Your answer" class="quiz-input">
+        <button id="submit-answer-btn" class="submit-answer-button">Submit Answer</button>
+      `;
         quizContent.classList.remove("hidden");
 
         document
@@ -215,13 +215,13 @@ document.addEventListener("DOMContentLoaded", function () {
               // Display name input form
               setTimeout(() => {
                 quizContent.innerHTML = `
-                  <div class="name-input-container">
-                    <p class="congratulations-message">Congratulations!</p>
-                    <p class="name-prompt">Please enter your name to add your score to the leaderboard:</p>
-                    <input type="text" id="player-name" placeholder="Your name" class="name-input">
-                    <button id="submit-name-btn" class="submit-name-button">Submit Name</button>
-                  </div>
-                `;
+                <div class="name-input-container">
+                  <p class="congratulations-message">Congratulations!</p>
+                  <p class="name-prompt">Please enter your name to add your score to the leaderboard:</p>
+                  <input type="text" id="player-name" placeholder="Your name" class="name-input">
+                  <button id="submit-name-btn" class="submit-name-button">Submit Name</button>
+                </div>
+              `;
                 const nameInputContainer = document.querySelector(
                   ".name-input-container"
                 );
@@ -309,8 +309,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   logOffBtn.addEventListener("click", function () {
-    alert("Logged off successfully.");
     // Implement log off functionality
+    alert("Logged off successfully.");
+
+    // Redirect to the login page
+    window.location.href = "index.html"; // Replace "login.html" with the actual path to your login page
   });
 
   // Show the Home section by default
@@ -341,4 +344,72 @@ document.addEventListener("DOMContentLoaded", function () {
   toggleNewPasswordBtn.addEventListener("click", function () {
     togglePasswordVisibility(newPasswordInput, toggleNewPasswordBtn);
   });
+});
+document
+  .getElementById("change-password-form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get form values
+    const email = document.getElementById("email").value; // Assuming you have an email input field
+    const currentPassword = document.getElementById("current-password").value;
+    const newPassword = document.getElementById("new-password").value;
+
+    // Check password length
+    if (newPassword.length < 8) {
+      alert("New password must be at least 8 characters long.");
+      return; // Exit the function if the password does not meet the requirement
+    }
+
+    // Form a dynamic key using the email
+    const key = `signupPassword_${email}`;
+
+    // Retrieve the current value associated with the key
+    const storedPassword = localStorage.getItem(key);
+
+    // Check if the current password matches the stored value
+    if (currentPassword === storedPassword) {
+      // Update the local storage with the new password
+      localStorage.setItem(key, newPassword);
+
+      // Clear the input fields
+      document.getElementById("current-password").value = "";
+      document.getElementById("new-password").value = "";
+
+      alert("Password changed successfully.");
+    } else {
+      alert("Current password is incorrect.");
+    }
+  });
+// Get elements
+const changePhotoBtn = document.getElementById("changePhotoBtn");
+const photoModal = document.getElementById("photoModal");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const importPhotoBtn = document.getElementById("importPhotoBtn");
+const photoInput = document.getElementById("photoInput");
+const profilePic = document.getElementById("profile-pic");
+
+// Open the modal when the change photo button is clicked
+changePhotoBtn.addEventListener("click", () => {
+  photoModal.classList.remove("hidden");
+});
+
+// Close the modal when the close button is clicked
+closeModalBtn.addEventListener("click", () => {
+  photoModal.classList.add("hidden");
+});
+
+// Handle importing the photo
+importPhotoBtn.addEventListener("click", () => {
+  const file = photoInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      profilePic.src = e.target.result; // Set the profile pic src to the imported image
+    };
+    reader.readAsDataURL(file);
+    photoModal.classList.add("hidden"); // Close the modal after importing
+  } else {
+    alert("Please select a photo to import.");
+  }
 });

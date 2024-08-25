@@ -49,47 +49,63 @@
         </div>
         <div class="profile-body">
           <div class="profile-photo">
-            <img id="profile-pic" src="profile.png" alt="Profile Photo" />
-            <button id="change-photo-btn">Change Photo</button>
+            <div class="profile-photo">
+              <img id="profile-pic" src="profile.png" alt="Profile Picture" />
+            </div>
+            <button id="changePhotoBtn">Change Photo</button>
+
+            <!-- Modal -->
+            <div id="photoModal" class="custom-modal hidden">
+              <div class="custom-modal-content">
+                <span id="closeModalBtn" class="custom-close-btn">&times;</span>
+                <h3>Import Photo</h3>
+                <div class="custom-file-input">
+                  <input type="file" id="photoInput" accept="image/*" />
+                  <label for="photoInput">Choose a photo</label>
+                </div>
+                <span id="fileName" class="file-name">No file chosen</span>
+                <button id="importPhotoBtn">Import</button>
+              </div>
+            </div>
+
+            <!-- Profile Photo -->
           </div>
           <div>Invite Link</div>
           <div class="profile-info">
             <h3>Account Information</h3>
             <form id="change-password-form">
-              <label for="current-password">Current Password:</label>
-              <div class="password-container">
-                <input
-                  type="password"
-                  id="current-password"
-                  name="current-password"
-                  required
-                />
-                <button
-                  type="button"
-                  class="toggle-password"
-                  id="toggle-current-password"
-                >
-                  ◉
-                </button>
-              </div>
-
-              <label for="new-password">New Password:</label>
-              <div class="password-container">
-                <input
-                  type="password"
-                  id="new-password"
-                  name="new-password"
-                  required
-                />
-                <button
-                  type="button"
-                  class="toggle-password"
-                  id="toggle-new-password"
-                >
-                  ◉
-                </button>
-              </div>
-
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+              />
+              <input
+                type="password"
+                id="current-password"
+                placeholder="Enter current password"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-password1"
+                id="toggle-current-password"
+              >
+                ◉
+              </button>
+              <input
+                type="password"
+                id="new-password"
+                placeholder="Enter new password"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                id="toggle-new-password"
+              >
+                ◉
+              </button>
               <button type="submit">Change Password</button>
             </form>
 

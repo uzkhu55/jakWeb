@@ -30,14 +30,21 @@ document.getElementById("login").addEventListener("submit", function (e) {
       showErrorBanner("Invalid invite code.");
     }
   } else {
-    showErrorBanner("Incorrect login credentials.");
+    showErrorBanner("Incorrect login mail password.");
   }
 });
 
 document.getElementById("signup").addEventListener("submit", function (e) {
   e.preventDefault();
+
   const email = document.getElementById("signup-email").value;
   const password = document.getElementById("signup-password").value;
+
+  // Check if the password meets the minimum length requirement
+  if (password.length < 8) {
+    alert("Password must be at least 8 characters long.");
+    return; // Stop the signup process if the password is too short
+  }
 
   // Set a default invite code
   const defaultInviteCode = "1234";
