@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bottom Navigation Example</title>
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <script
+    src="https://kit.fontawesome.com/9cd0f99006.js"
+    crossorigin="anonymous"
+  ></script>
+  <body>
+    <div id="content">
+      <div id="home" class="content-section">Home</div>
+      <div id="menu" class="content-section hidden">
+        <!-- Menu Header -->
+        <div class="menu-header">
+          <div class="menu-quiz-leaderboard">
+            <button id="add-questions-btn">Add Questions</button>
+            <button id="leaderboard-btn">Leaderboard</button>
+            <button id="play-quiz-btn">Play Quiz</button>
+          </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="success-modal" class="modal hidden">
+          <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <p id="modal-message">Question added successfully!</p>
+          </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="success-custom-modal" class="custom-modal hidden">
+          <div class="custom-modal-content">
+            <span class="custom-close-btn">&times;</span>
+            <p id="custom-modal-message">
+              Your score has been added to the leaderboard!
+            </p>
+          </div>
+        </div>
+
+        <!-- Menu Body -->
+        <div class="menu-body" id="menu-body"></div>
+      </div>
+
+      <div id="profile" class="content-section hidden">
+        <div class="profile-header">
+          <h2>Profile</h2>
+        </div>
+        <div class="profile-body">
+          <div class="profile-photo">
+            <img id="profile-pic" src="profile.png" alt="Profile Photo" />
+            <button id="change-photo-btn">Change Photo</button>
+          </div>
+          <div>Invite Link</div>
+          <div class="profile-info">
+            <h3>Account Information</h3>
+            <form id="change-password-form">
+              <label for="current-password">Current Password:</label>
+              <div class="password-container">
+                <input
+                  type="password"
+                  id="current-password"
+                  name="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="toggle-password"
+                  id="toggle-current-password"
+                >
+                  ◉
+                </button>
+              </div>
+
+              <label for="new-password">New Password:</label>
+              <div class="password-container">
+                <input
+                  type="password"
+                  id="new-password"
+                  name="new-password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="toggle-password"
+                  id="toggle-new-password"
+                >
+                  ◉
+                </button>
+              </div>
+
+              <button type="submit">Change Password</button>
+            </form>
+
+            <!-- Feedback banner -->
+            <div id="feedback-banner" class="feedback-banner hidden"></div>
+          </div>
+          <button id="log-off-btn">Log Off</button>
+        </div>
+      </div>
+      <div id="home-intro" class="intro-section">
+        <h1>Welcome to QuizMaster!</h1>
+        <p>
+          Discover a world of knowledge with our interactive quiz platform.
+          Whether you're looking to test your trivia skills or learn something
+          new, QuizMaster has something for everyone.
+        </p>
+        <div class="features">
+          <h2>Features</h2>
+          <ul>
+            <li>
+              <i class="fa fa-lightbulb"></i>
+              <strong>Varied Quiz Topics:</strong> Choose from a wide range of
+              topics including science, history, and pop culture.
+            </li>
+            <li>
+              <i class="fa fa-question-circle"></i>
+              <strong>Interactive Questions:</strong> Engage with
+              multiple-choice questions, true/false statements, and more.
+            </li>
+            <li>
+              <i class="fa fa-tachometer-alt"></i>
+              <strong>Real-Time Scoring:</strong> Track your progress and see
+              how you stack up against others.
+            </li>
+            <li>
+              <i class="fa fa-plus-circle"></i>
+              <strong>Custom Quizzes:</strong> Create your own quizzes and
+              challenge your friends.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="bottom-nav">
+        <button id="home-btn">Home</button>
+        <button id="menu-btn">Menu</button>
+        <button id="profile-btn">Profile</button>
+      </div>
+    </div>
+
+    <script src="home.js"></script>
+  </body>
+</html>
