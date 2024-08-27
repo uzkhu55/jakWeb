@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const leaderboardBtn = document.getElementById("leaderboard-btn");
   const playQuizBtn = document.getElementById("play-quiz-btn");
   const menuBody = document.getElementById("menu-body");
+  const birthdayBody = document.getElementById(" birthday-quiz-btn");
 
   function showSection(sectionId) {
     // Hide all sections
@@ -196,17 +197,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const questionObj = questions[randomIndex];
 
         quizContent.innerHTML = `
-        <p class="quiz-question">${questionObj.question}</p>
-        <input type="text" id="user-answer" placeholder="Your answer" class="quiz-input">
-        <button id="submit-answer-btn" class="submit-answer-button">Submit Answer</button>
-      `;
+            <p class="quiz-question">${questionObj.question}</p>
+            <input type="text" id="user-answer-1" placeholder="Your answer" class="quiz-input">
+            <input type="text" id="user-answer-2" placeholder="Your answer" class="quiz-input">
+            <input type="text" id="user-answer-3" placeholder="Your answer" class="quiz-input">
+            <input type="text" id="user-answer-4" placeholder="Your answer" class="quiz-input">
+    
+            <button id="submit-answer-btn" class="submit-answer-button">Submit Answer</button>
+            <button id="report-question-btn" class="report-button">Report</button>
+            <button id="delete-question-btn" class="delete-button">Delete</button>
+        `;
         quizContent.classList.remove("hidden");
 
         document
           .getElementById("submit-answer-btn")
           .addEventListener("click", function () {
             const userAnswer = document
-              .getElementById("user-answer")
+              .querySelector(".quiz-input")
               .value.trim();
 
             if (userAnswer.toLowerCase() === questionObj.answer.toLowerCase()) {
@@ -215,13 +222,13 @@ document.addEventListener("DOMContentLoaded", function () {
               // Display name input form
               setTimeout(() => {
                 quizContent.innerHTML = `
-                <div class="name-input-container">
-                  <p class="congratulations-message">Congratulations!</p>
-                  <p class="name-prompt">Please enter your name to add your score to the leaderboard:</p>
-                  <input type="text" id="player-name" placeholder="Your name" class="name-input">
-                  <button id="submit-name-btn" class="submit-name-button">Submit Name</button>
-                </div>
-              `;
+                    <div class="name-input-container">
+                      <p class="congratulations-message">Congratulations!</p>
+                      <p class="name-prompt">Please enter your name to add your score to the leaderboard:</p>
+                      <input type="text" id="player-name" placeholder="Your name" class="name-input">
+                      <button id="submit-name-btn" class="submit-name-button">Submit Name</button>
+                    </div>
+                  `;
                 const nameInputContainer = document.querySelector(
                   ".name-input-container"
                 );
@@ -264,7 +271,6 @@ document.addEventListener("DOMContentLoaded", function () {
                       // Optionally, you can clear the form fields
                       document.getElementById("player-name").value = "";
                     }
-                    // Optionally, you can display another question or handle other actions here
                   });
               }, 2000); // 2-second delay before showing name input
             } else {
@@ -274,6 +280,30 @@ document.addEventListener("DOMContentLoaded", function () {
               );
               setTimeout(() => displayRandomQuestion(), 2000); // 2-second delay before the next question
             }
+          });
+
+        document
+          .getElementById("report-question-btn")
+          .addEventListener("click", function () {
+            // Handle the report action
+            showFeedbackBanner(
+              "Question reported! Thank you for your feedback.",
+              false
+            );
+          });
+
+        document
+          .getElementById("delete-question-btn")
+          .addEventListener("click", function () {
+            // Remove the question from the array
+            questions.splice(randomIndex, 1);
+
+            // Save the updated questions array back to local storage if needed
+            localStorage.setItem("questions", JSON.stringify(questions));
+
+            // Provide feedback and display the next question
+            showFeedbackBanner("Question deleted successfully.", false);
+            setTimeout(() => displayRandomQuestion(), 2000); // 2-second delay before showing the next question
           });
       }
 
@@ -308,43 +338,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  logOffBtn.addEventListener("click", function () {
-    // Implement log off functionality
-    alert("Logged off successfully.");
+  // logOffBtn.addEventListener("click", function () {
+  //   // Implement log off functionality
+  //   alert("Logged off successfully.");
 
-    // Redirect to the login page
-    window.location.href = "index.html"; // Replace "login.html" with the actual path to your login page
-  });
+  //   // Redirect to the login page
+  //   window.location.href = "index.html"; // Replace "login.html" with the actual path to your login page
+  // });
 
-  // Show the Home section by default
-  showSection("home");
+  // // Show the Home section by default
+  // showSection("home");
 });
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleCurrentPasswordBtn = document.getElementById(
-    "toggle-current-password"
-  );
-  const toggleNewPasswordBtn = document.getElementById("toggle-new-password");
-  const currentPasswordInput = document.getElementById("current-password");
-  const newPasswordInput = document.getElementById("new-password");
 
-  function togglePasswordVisibility(input, button) {
-    if (input.type === "password") {
-      input.type = "text";
-      button.textContent = "◎"; // Change icon to indicate password is visible
-    } else {
-      input.type = "password";
-      button.textContent = "◉"; // Change icon back to indicate password is hidden
-    }
-  }
-
-  toggleCurrentPasswordBtn.addEventListener("click", function () {
-    togglePasswordVisibility(currentPasswordInput, toggleCurrentPasswordBtn);
-  });
-
-  toggleNewPasswordBtn.addEventListener("click", function () {
-    togglePasswordVisibility(newPasswordInput, toggleNewPasswordBtn);
-  });
-});
 document
   .getElementById("change-password-form")
   .addEventListener("submit", function (event) {
@@ -413,3 +418,89 @@ importPhotoBtn.addEventListener("click", () => {
     alert("Please select a photo to import.");
   }
 });
+// Get the modal
+var modal = document.getElementById("qrModal1");
+
+// Get the button that opens the modal
+var btn = document.getElementById("charge1");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close1")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function () {
+  modal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+// Get the modal
+const modol = document.getElementById("birthday-modal");
+
+// Get the button that opens the modal
+const bton = document.getElementById("birthday-quiz-btn");
+
+// Get the <span> element that closes the modal
+const spon = document.getElementById("close-modal2");
+
+// Get the search button
+const searchBtn = document.getElementById("search-birthday");
+const resultsContainer = document.getElementById("search-results");
+
+// When the user clicks the button, open the modal
+bton.onclick = function () {
+  modol.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+spon.onclick = function () {
+  modol.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modol) {
+    modol.style.display = "none";
+  }
+};
+
+// Handle the search functionality
+searchBtn.onclick = function () {
+  // Retrieve data from local storage
+  const storedData = JSON.parse(localStorage.getItem("birthdays")) || [];
+
+  // Get the input value
+  const birthdayInput = document.getElementById("birthday-input").value.trim();
+
+  // Check if input is empty
+  if (!birthdayInput) {
+    resultsContainer.innerHTML = "<p>Please enter a birthday.</p>";
+    return;
+  }
+
+  // Filter the data
+  const results = storedData.filter(
+    (entry) => entry.birthday === birthdayInput
+  );
+
+  // Display results
+  if (results.length > 0) {
+    resultsContainer.innerHTML = results
+      .map(
+        (result) =>
+          `<p>Birthday: ${result.birthday} - Email: ${result.email}</p>`
+      )
+      .join("");
+  } else {
+    resultsContainer.innerHTML = "<p>No matching birthdays found.</p>";
+  }
+};

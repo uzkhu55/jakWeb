@@ -70,7 +70,17 @@
 
             <!-- Profile Photo -->
           </div>
-          <div>Invite Link</div>
+
+          <button id="charge1">Charge</button>
+          <div id="qrModal1" class="modal1">
+            <div class="modal-content1">
+              <span class="close1">&times;</span>
+              <h2>Scan the QR Code for Charge</h2>
+              <img src="qr.jpg" alt="QR Code" id="qrCodeImage1" />
+            </div>
+          </div>
+
+          <div id="qr-modal" class="modal-hidden"></div>
           <div class="profile-info">
             <h3>Account Information</h3>
             <form id="change-password-form">
@@ -86,33 +96,32 @@
                 placeholder="Enter current password"
                 required
               />
-              <!-- <button
-                type="button"
-                class="toggle-password1"
-                id="toggle-current-password"
-              >
-                ◉
-              </button> -->
+
               <input
                 type="password"
                 id="new-password"
                 placeholder="Enter new password"
                 required
               />
-              <!-- <button
-                type="button"
-                class="toggle-password"
-                id="toggle-new-password"
-              >
-                ◉
-              </button> -->
+
               <button type="submit">Change Password</button>
             </form>
 
             <!-- Feedback banner -->
             <div id="feedback-banner" class="feedback-banner hidden"></div>
           </div>
-          <button id="log-off-btn">Log Off</button>
+          <!-- Button to trigger the modal -->
+          <button id="birthday-quiz-btn" class="birthday">Birthday</button>
+
+          <!-- The Modal -->
+          <div id="birthday-modal" class="modal2">
+            <div class="modal-content2">
+              <span id="close-modal2" class="close2">&times;</span>
+              <input type="date" id="birthday-input" required />
+              <button id="search-birthday">Search</button>
+              <div id="search-results"></div>
+            </div>
+          </div>
         </div>
       </div>
       <div id="home-intro" class="intro-section">
@@ -128,6 +137,13 @@
         <button id="menu-btn">Menu</button>
         <button id="profile-btn">Profile</button>
       </div>
+    </div>
+    <div class="quiz-container">
+      <h3>Play Quiz</h3>
+      <p>Get ready to start the quiz!</p>
+      <button id="start-quiz-btn" class="start-quiz-button">Start Quiz</button>
+      <div id="quiz-content" class="quiz-content hidden"></div>
+      <div id="feedback-banner" class="feedback-banner hidden"></div>
     </div>
 
     <script src="home.js"></script>

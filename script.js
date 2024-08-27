@@ -14,31 +14,39 @@ document.getElementById("login").addEventListener("submit", function (e) {
   e.preventDefault();
   const email = document.getElementById("login-email").value;
   const password = document.getElementById("login-password").value;
-  const inviteCode = document.getElementById("invite-code").value; // Get invite code from login form
+  const inviteCode = document.getElementById("invite-code").value;
 
-  // Retrieve saved credentials and invite code from local storage
-  const savedEmail = localStorage.getItem("signupEmail");
-  const savedPassword = localStorage.getItem(`signupPassword_${savedEmail}`);
-  const validInviteCode = localStorage.getItem("inviteCode"); // Retrieve stored invite code
+  // Retrieve the users array from local storage
+  const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Check if the provided credentials match the saved credentials and invite code
-  if (email === savedEmail && password === savedPassword) {
-    if (inviteCode === validInviteCode) {
+  // Find the user object that matches the provided email and password
+  const user = users.find(
+    (user) => user.email === email && user.password === password
+  );
+
+  if (user) {
+    if (inviteCode === user.inviteCode) {
       // Check invite code validity
       window.location.href = "home.html"; // Navigate to home.html in the same tab
     } else {
       showErrorBanner("Invalid invite code.");
     }
   } else {
-    showErrorBanner("Incorrect login mail password.");
+    showErrorBanner("Incorrect email or password.");
   }
 });
+
+function showErrorBanner(message) {
+  // Implement your function to display error messages to the user
+  alert(message); // For simplicity, we're using an alert here
+}
 
 document.getElementById("signup").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const email = document.getElementById("signup-email").value;
   const password = document.getElementById("signup-password").value;
+  const birthday = document.getElementById("signup-birthday").value;
 
   // Check if the password meets the minimum length requirement
   if (password.length < 8) {
@@ -51,8 +59,33 @@ document.getElementById("signup").addEventListener("submit", function (e) {
   localStorage.setItem("inviteCode", defaultInviteCode); // Save the invite code
 
   // Save signup information in local storage
-  localStorage.setItem("signupEmail", email);
-  localStorage.setItem(`signupPassword_${email}`, password); // Save password with email as part of the key
+  const user = {
+    email: email,
+    password: password,
+    birthday: birthday,
+    inviteCode: defaultInviteCode,
+  };
+
+  // Retrieve existing users array from local storage or create a new one
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Add the new user to the array
+  users.push(user);
+
+  // Save the updated users array back to local storage
+  localStorage.setItem("users", JSON.stringify(users));
+
+  // Retrieve existing birthdays array from local storage or create a new one
+  const birthdays = JSON.parse(localStorage.getItem("birthdays")) || [];
+
+  // Add the new user's birthday and email to the array
+  birthdays.push({
+    birthday: birthday,
+    email: email,
+  });
+
+  // Save the updated birthdays array back to local storage
+  localStorage.setItem("birthdays", JSON.stringify(birthdays));
 
   alert(`Signing up with Email: ${email}`);
 
